@@ -1,16 +1,36 @@
 #!make
 
+# Set the name of the Caddy container
+CADDY_CONTAINER=asd-caddy
+
+# Set the path where the Caddy root certificate will be saved on the host machine
+CADDY_CERT_PATH=${PWD}/root.crt
+
 CADDY_COMPOSE=docker/caddy/docker-compose.yml
+
+dir-caddy:
+	mkdir -p local/data/caddy
 
 docker-caddy-network:
 	@docker network create caddy
 
-docker-caddy-up:
-	@${COMPOSE} -f ${CADDY_COMPOSE} up -d
+docker-caddy-up: dir-caddy
+	@${COMPOSE} -f ${CADDY_COMPOSE} up -d --force-recreate
 
 docker-caddy-down:
 	@${COMPOSE} -f ${CADDY_COMPOSE} down
 
-# Sources
-# https://caddyserver.com/docs/automatic-https
-# https://github.com/lucaslorentz/caddy-docker-proxy#basic-usage-example-using-docker-compose
+docker-caddy-connect:
+	docker exec -it ${CADDY_CONTAINER} /bin/sh
+
+# Copy the Caddy root certificate
+caddy-copy-ca:
+	sudo cp ${PWD}/local/data/caddy/pki/authorities/local/root.crt .
+	sudo cp ${PWD}/local/data/caddy/pki/authorities/local/intermediate.crt .
+	sudo chown ${USER}:${USER} root.crt intermediate.crt
+
+# Install the Caddy root certificate in the system's trust store
+# C:\Windows\system32\drivers\etc
+# /etc/hosts
+caddy-install-ca:
+	certutil -addstore -f "Root" ${CADDY_CERT_PATH}

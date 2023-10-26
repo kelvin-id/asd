@@ -7,18 +7,19 @@ services:
       - 80:80
       - 443:443
       - 2019:2019
+    expose:
+      - 443
+      - 80
     environment:
       - CADDY_INGRESS_NETWORKS=caddy
     networks:
       - caddy
     volumes:
+      # sudo ls -all ./local/data/caddy/pki/authorities/local/root.crt
+      - ${PWD}/local/data:/data
       - /var/run/docker.sock:/var/run/docker.sock
-      - caddy_data:/data
     restart: unless-stopped
 
 networks:
   caddy:
     external: true
-
-volumes:
-  caddy_data: {}

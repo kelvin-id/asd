@@ -1,2 +1,5 @@
 local
 .env
+data
+*.crt
+*.key

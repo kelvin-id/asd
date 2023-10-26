@@ -2,13 +2,13 @@ version: "3.7"
 services:
   whoami:
     image: containous/whoami
-    container_name: whoami.example.com
+    container_name: whoami.localhost
     networks:
       - caddy
     labels:
-      caddy: whoami.example.com
+      caddy: whoami.localhost
       caddy.reverse_proxy: "{{upstreams 80}}"
-      caddy.tls: internal
+      caddy.tls: internal # This line tells Caddy to generate a self-signed certificate
 
 networks:
   caddy:

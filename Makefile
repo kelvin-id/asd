@@ -1,5 +1,6 @@
 
 #!make
+.SILENT:
 
 # > Config
 
@@ -12,17 +13,23 @@
 
 # caddy - webserver
 -include docker/caddy/caddy.mak
-# squid - proxyserver
--include docker/squid/squid.mak
+# privoxy - proxyserver
+-include docker/privoxy/privoxy.mak
 # whoami - test
 -include docker/whoami/whoami.mak
 
 # > Project
 
-start: docker-caddy-up docker-whoami-up docker-squid-up
-	docker ps
-stop: docker-caddy-down docker-whoami-down docker-squid-down
-	docker ps
+dir-local:
+	mkdir -p local
+
+start: dir-local
+	@make -j docker-caddy-up docker-whoami-up docker-privoxy-up
+	@docker ps
+
+stop:
+	@make -j docker-caddy-down docker-whoami-down docker-privoxy-down
+	@docker ps
 
 # up:
 # 	@${COMPOSE} up -d
