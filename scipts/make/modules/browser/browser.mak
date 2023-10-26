@@ -6,7 +6,8 @@ EDGE_EXE=
 
 DEFAULT_URL=https://whoami.localhost
 
-CHROME=${CHROME_EXE} --proxy-server="${PROXY_SERVER}" --new-window ${DEFAULT_URL} &
+CHROME_ARGS=--unsafely-treat-insecure-origin-as-secure=https://*.localhost
+CHROME=${CHROME_EXE} --proxy-server="${PROXY_SERVER}" --new-window ${DEFAULT_URL} ${CHROME_ARGS} &
 EDGE=microsoft-edge --proxy-server="${PROXY_SERVER}" --new-window ${DEFAULT_URL} &
 
 BROWSER=${CHROME}
