@@ -3,3 +3,5 @@ local
 data
 *.crt
 *.key
+.dev
+workspace

@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  asd-codeserver:
+    build: 
+      context: ${PWD}
+      dockerfile: ${PWD}/docker/codeserver/alpine.python.dockerfile
+      args:
+        - OS_VERSION:${OS_VERSION}
+        - DEVELOPMENT_LANG:${DEVELOPMENT_LANG}
+        - DEVELOPMENT_VERSION:${DEVELOPMENT_VERSION}
+        - TERMINAL_TYPE=${TERMINAL_TYPE}
+    container_name: asd-codeserver
+    tty: true
+    hostname: asd-codeserver
+    restart: unless-stopped
+    networks:
+      - caddy
+    ports:
+      - "7682:7682"
+    labels:
+      caddy: code.localhost
+      caddy.reverse_proxy: "{{upstreams 7682}}"
+      caddy.tls: internal
+    volumes:
+      - ${PWD}/workspace:/home/developer/workspace:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  caddy:
+    external: true

@@ -1,4 +1,6 @@
 #!make
+.PHONY: $(call read_phony_targets,whoami.phony)
+
 WHOAMI_COMPOSE=docker/whoami/docker-compose.yml
 
 docker-whoami-up:

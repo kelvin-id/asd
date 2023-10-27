@@ -1,0 +1,4 @@
+docker-whoami-check 
+docker-whoami-up 
+docker-whoami-down
+docker-whoami-test

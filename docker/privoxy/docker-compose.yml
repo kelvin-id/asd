@@ -8,8 +8,12 @@ services:
     volumes:
       - ${PWD}/docker/privoxy/user.action:/etc/privoxy/user.action
       - ${PWD}/docker/privoxy/user.filter:/etc/privoxy/user.filter
-    # cap_add:
-    #   - NET_ADMIN
+    cap_add:
+    # NET_ADMIN: This is granting privoxy the ability to configure network interfaces
+    # set firewall rules, and perform other network-related administrative tasks 
+    # without needing full root privileges
+    # ⚠️ it does potentially introduce security risks
+      - NET_ADMIN
     restart: always
     networks:
       - caddy

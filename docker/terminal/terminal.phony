@@ -1,0 +1,3 @@
+docker-terminal -check 
+docker-terminal -up 
+docker-terminal -down

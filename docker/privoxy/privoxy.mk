@@ -1,4 +1,5 @@
 #!make
+.PHONY: $(call read_phony_targets,privoxy.phony)
 
 PRIVOXY_COMPOSE=docker/privoxy/docker-compose.yml
 

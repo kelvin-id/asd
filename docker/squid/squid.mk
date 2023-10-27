@@ -1,4 +1,5 @@
 #!make
+.PHONY: $(call read_phony_targets,squid.phony)
 
 SQUID_COMPOSE=docker/squid/docker-compose.yml
 
