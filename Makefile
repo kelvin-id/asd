@@ -51,8 +51,7 @@ ${WORKSPACE_DIR}:
 	mkdir -p ${WORKSPACE_DIR}/config
 	@printf "📁	Created directory structure workspace/config.\n"
 
-# SERVICES?=caddy whoami privoxy terminal 
-SERVICES?=codeserver
+SERVICES?=caddy whoami privoxy terminal codeserver
 
 # Define a function to generate targets
 define g_docker_targets

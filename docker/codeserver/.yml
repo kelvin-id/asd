@@ -4,7 +4,7 @@ services:
   asd-terminal:
     build: 
       context: ${PWD}
-      dockerfile: ${PWD}/docker/developer/alpine.python.dockerfile
+      dockerfile: ${PWD}/docker/terminal/alpine.python.dockerfile
       # args:
       #   - OS_VERSION:${OS_VERSION}
       #   - DEVELOPMENT_LANG:${DEVELOPMENT_LANG}

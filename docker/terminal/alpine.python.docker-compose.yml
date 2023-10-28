@@ -4,7 +4,7 @@ services:
   asd-terminal:
     build: 
       context: ${PWD}
-      dockerfile: ${PWD}/docker/developer /alpine.python.dockerfile
+      dockerfile: ${PWD}/docker/terminal/alpine.python.dockerfile
       # args:
       #   - OS_VERSION:${OS_VERSION}
       #   - DEVELOPMENT_LANG:${DEVELOPMENT_LANG}
@@ -23,7 +23,7 @@ services:
       caddy.reverse_proxy: "{{upstreams 7681}}"
       caddy.tls: internal
     volumes:
-      - ${PWD}/workspace:/home/developer /workspace:rw
+      - ${PWD}/workspace:/home/developer/workspace:rw
       - /var/run/docker.sock:/var/run/docker.sock
     # Set ttyd as the command (not entrypoint) with specified options
     command: sh -c "ttyd -p 7681 zsh"
