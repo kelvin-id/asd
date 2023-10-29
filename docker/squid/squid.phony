@@ -1,3 +1,6 @@
 docker-squid-check 
 docker-squid-up 
 docker-squid-down
+docker-squid-recreate
+docker-squid-logs
+docker-squid-connect

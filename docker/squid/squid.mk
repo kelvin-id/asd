@@ -8,3 +8,6 @@ docker-squid-up:
 
 docker-squid-down:
 	@${COMPOSE} -f ${SQUID_COMPOSE} down
+
+docker-squid-recreate:
+	@${COMPOSE} -f ${SQUID_COMPOSE} up -d --force-recreate

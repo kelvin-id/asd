@@ -1,3 +1,6 @@
 docker-codeserver-check 
 docker-codeserver-up 
 docker-codeserver-down
+docker-codeserver-recreate
+docker-codeserver-logs
+docker-codeserver-connect

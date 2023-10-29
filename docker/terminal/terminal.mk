@@ -14,8 +14,11 @@ TERMINAL_COMPOSE=docker/terminal/${MACHINE_OS}.${DEVELOPMENT_LANG}.docker-compos
 docker-terminal-check:
 	@${COMPOSE} -f ${TERMINAL_COMPOSE} build
 
-docker-terminal-up: docker-terminal -check
+docker-terminal-up: docker-terminal-check
 	@${COMPOSE} -f ${TERMINAL_COMPOSE} up -d
 
 docker-terminal-down:
 	@${COMPOSE} -f ${TERMINAL_COMPOSE} down
+
+docker-terminal-recreate:
+	@${COMPOSE} -f ${TERMINAL_COMPOSE} up -d --force-recreate

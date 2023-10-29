@@ -10,8 +10,8 @@ services:
     # volumes:
     #   - ${PWD}/docker/squid/squid.conf:/etc/squid3/squid.conf
     networks:
-      - caddy
+      - asd_network
 
 networks:
-  caddy:
+  asd_network:
     external: true

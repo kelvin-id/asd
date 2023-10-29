@@ -8,3 +8,6 @@ docker-privoxy-up:
 
 docker-privoxy-down:
 	@${COMPOSE} -f ${PRIVOXY_COMPOSE} down
+
+docker-privoxy-recreate:
+	@${COMPOSE} -f ${PRIVOXY_COMPOSE} up -d --force-recreate

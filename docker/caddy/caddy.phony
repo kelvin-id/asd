@@ -1,6 +1,8 @@
 docker-caddy-network
 docker-caddy-up
 docker-caddy-down
+docker-caddy-recreate
 docker-caddy-connect
+docker-caddy-logs
 caddy-copy-ca
 caddy-install-ca

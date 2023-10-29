@@ -1,3 +1,6 @@
-docker-terminal -check 
-docker-terminal -up 
-docker-terminal -down
+docker-terminal-check 
+docker-terminal-up 
+docker-terminal-down
+docker-terminal-recreate
+docker-terminal-logs
+docker-terminal-connect

@@ -15,9 +15,9 @@ services:
     hostname: asd-terminal
     restart: unless-stopped
     networks:
-      - caddy
-    ports:
-      - "7681:7681"
+      - asd_network
+    # ports:
+    #   - "7681:7681"
     labels:
       caddy: terminal.localhost
       caddy.reverse_proxy: "{{upstreams 7681}}"
@@ -29,5 +29,5 @@ services:
     command: sh -c "ttyd -p 7681 zsh"
 
 networks:
-  caddy:
+  asd_network:
     external: true

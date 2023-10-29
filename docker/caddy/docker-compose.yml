@@ -11,9 +11,9 @@ services:
       - 443
       - 80
     environment:
-      - CADDY_INGRESS_NETWORKS=caddy
+      - CADDY_INGRESS_NETWORKS=asd_network
     networks:
-      - caddy
+      - asd_network
     volumes:
       # sudo ls -all ./local/data/caddy/pki/authorities/local/root.crt
       - ${PWD}/local/data:/data
@@ -21,5 +21,5 @@ services:
     restart: unless-stopped
 
 networks:
-  caddy:
+  asd_network:
     external: true

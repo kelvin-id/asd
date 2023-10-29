@@ -19,3 +19,6 @@ docker-codeserver-up: docker-codeserver-check
 
 docker-codeserver-down:
 	@${COMPOSE} -f ${CODESERVER_COMPOSE} down
+
+docker-codeserver-recreate:
+	@${COMPOSE} -f ${CODESERVER_COMPOSE} up -d --force-recreate

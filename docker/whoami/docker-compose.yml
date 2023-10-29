@@ -2,14 +2,14 @@ version: "3.7"
 services:
   whoami:
     image: containous/whoami
-    container_name: whoami.localhost
+    container_name: asd-whoami
     networks:
-      - caddy
+      - asd_network
     labels:
-      caddy: whoami.localhost
+      caddy: who.local
       caddy.reverse_proxy: "{{upstreams 80}}"
       caddy.tls: internal
 
 networks:
-  caddy:
+  asd_network:
     external: true

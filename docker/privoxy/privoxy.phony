@@ -1,3 +1,6 @@
 docker-privoxy-check 
 docker-privoxy-up 
 docker-privoxy-down
+docker-privoxy-recreate
+docker-privoxy-logs
+docker-privoxy-connect
