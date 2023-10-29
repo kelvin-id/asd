@@ -5,3 +5,4 @@ data
 *.key
 .dev
 workspace
+all.src

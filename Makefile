@@ -1,6 +1,7 @@
 #!make
 .SILENT:
 include scripts/make/modules/common/functions.mk
+include docker/template/commands.mk
 
 # > Config
 
@@ -11,7 +12,7 @@ CONFIG_PATH?=./${WORKSPACE_DIR}/config/${CONFIG_FILE}
 
 # > Setup
 
-#	execute when calling `make`
+#	Execute when calling `make`
 all: ${WORKSPACE_DIR} ${CONFIG_PATH}
 	@printf '🚀	Run the start command to launch your environment.\n'
 
@@ -31,16 +32,9 @@ export $(shell sed 's/=.*//' ${CONFIG_PATH})
 
 # > Services
 
-# 	caddy - webserver
-include docker/caddy/caddy.mk
-# 	privoxy - proxyserver
-include docker/privoxy/privoxy.mk
-# 	whoami - test
-include docker/whoami/whoami.mk
-# 	terminal
-include docker/terminal/terminal.mk
-#	codeserver
-include docker/codeserver/codeserver.mk
+SERVICES?=caddy whoami privoxy terminal codeserver #headscale
+SERVICES_INCLUDES := $(foreach service,$(SERVICES),docker/$(service)/$(service).mk)
+include ${SERVICES_INCLUDES}
 
 # > Project
 
@@ -50,8 +44,6 @@ ${LOCAL_DIR}:
 ${WORKSPACE_DIR}:
 	mkdir -p ${WORKSPACE_DIR}/config
 	@printf "📁	Created directory structure workspace/config.\n"
-
-SERVICES?=caddy whoami privoxy terminal codeserver
 
 # Define a function to generate targets
 define g_docker_targets
@@ -83,3 +75,8 @@ browse:
 	${BROWSER}
 
 .PHONY: pull start stop renew browse
+
+# All site sources in one file
+SRC_FILES += $(foreach service,$(SERVICES),$(call rwildcard,docker/$(service)/,*.src))
+all.src: $(SRC_FILES)
+	@cat $^ | sort | uniq > $@

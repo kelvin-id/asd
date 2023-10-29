@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  <~TMPL_NAME~>:
+    image: <~TMPL_IMAGE~>
+    container_name: asd-<~TMPL_NAME~>
+    networks:
+      - caddy
+    labels:
+      caddy: <~TMPL_DNS~>
+      caddy.reverse_proxy: "{{upstreams <~TMPL_PORT~>}}"
+      caddy.tls: internal
+
+networks:
+  caddy:
+    external: true

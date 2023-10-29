@@ -1,0 +1,4 @@
+docker-<~TMPL_NAME~>-check 
+docker-<~TMPL_NAME~>-up 
+docker-<~TMPL_NAME~>-down
+docker-<~TMPL_NAME~>-test

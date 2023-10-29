@@ -8,7 +8,7 @@ services:
     labels:
       caddy: whoami.localhost
       caddy.reverse_proxy: "{{upstreams 80}}"
-      caddy.tls: internal # This line tells Caddy to generate a self-signed certificate
+      caddy.tls: internal
 
 networks:
   caddy:
