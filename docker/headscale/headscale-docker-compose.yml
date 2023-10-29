@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  headscale:
+    image: jauderho/headscale:v0.22.3
+    container_name: asd-headscale
+    networks:
+      - asd_network
+    ports:
+      - 8080:8080
+    labels:
+      # caddy: |
+      #   headscale.localhost {
+      #       @matchHeadscale {
+      #           host headscale.localhost
+      #       }
+      #       reverse_proxy @matchHeadscale 172.20.0.5:8080
+            
+      #       @matchMonitor {
+      #           host monitor.headscale.localhost
+      #       }
+      #       reverse_proxy @matchMonitor 172.20.0.5:9090
+
+      #       tls internal
+      #   }
+      caddy: scale.localhost
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+      caddy.tls: internal
+    volumes:
+      - ${PWD}/workspace/service/headscale:/etc/headscale
+    command: 'serve'
+
+networks:
+  asd_network:
+    external: true

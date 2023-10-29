@@ -1,0 +1,7 @@
+docker-headscale-check 
+docker-headscale-up 
+docker-headscale-down
+docker-headscale-recreate
+docker-headscale-test
+docker-headscale-logs
+docker-headscale-connect
