@@ -1,0 +1,7 @@
+docker-coredns-check 
+docker-coredns-up 
+docker-coredns-down
+docker-coredns-recreate
+docker-coredns-test
+docker-coredns-logs
+docker-coredns-connect

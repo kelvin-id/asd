@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  coredns:
+    image: coredns/coredns:1.11.1
+    container_name: asd-coredns
+    networks:
+      - asd_network
+    labels:
+      caddy: dns.localhost
+      caddy.reverse_proxy: "{{upstreams 53}}"
+      caddy.tls: internal
+
+networks:
+  asd_network:
+    external: true
