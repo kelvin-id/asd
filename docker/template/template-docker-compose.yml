@@ -4,12 +4,12 @@ services:
     image: <~TMPL_IMAGE~>
     container_name: asd-<~TMPL_NAME~>
     networks:
-      - caddy
+      - asd_network
     labels:
       caddy: <~TMPL_DNS~>
       caddy.reverse_proxy: "{{upstreams <~TMPL_PORT~>}}"
       caddy.tls: internal
 
 networks:
-  caddy:
+  asd_network:
     external: true

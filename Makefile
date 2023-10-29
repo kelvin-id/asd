@@ -1,14 +1,15 @@
 #!make
 .SILENT:
-include scripts/make/modules/common/functions.mk
-include docker/template/commands.mk
 
 # > Config
 
 LOCAL_DIR?=local
 WORKSPACE_DIR?=workspace
+CONFIG_DIR=${WORKSPACE_DIR}/config
+SERVICE_DIR=${WORKSPACE_DIR}/service
 CONFIG_FILE?=.env
-CONFIG_PATH?=./${WORKSPACE_DIR}/config/${CONFIG_FILE}
+CONFIG_DEFAULT?=./config/.env-example
+CONFIG_PATH?=${WORKSPACE_DIR}/config/${CONFIG_FILE}
 
 # > Setup
 
@@ -17,22 +18,28 @@ all: ${WORKSPACE_DIR} ${CONFIG_PATH}
 	@printf '🚀	Run the start command to launch your environment.\n'
 
 #	Executes only if .env does not exist or the origin has
-${CONFIG_PATH}: ./config/.env-example
-	cp $< $@
+${CONFIG_PATH}:
+	cp ${CONFIG_DEFAULT} $@
 	@printf "📋	Copied default config to workspace.\n"
 
 #	Import and expose all VARS from the config to all make targets 
+ifeq ($(wildcard ${CONFIG_PATH}),) # check if file exists
+# CONFIG_PATH is not set
+else
 -include ${CONFIG_PATH}
 export $(shell sed 's/=.*//' ${CONFIG_PATH})
+endif
 
 # > Modules
 
--include scripts/make/modules/browser/browser.mk
--include scripts/make/modules/container/docker.mk
+include docker/template/commands.mk
+include scripts/make/modules/common/functions.mk
+include scripts/make/modules/browser/browser.mk
+include scripts/make/modules/container/docker.mk
 
 # > Services
 
-SERVICES?=caddy whoami privoxy terminal codeserver #headscale
+SERVICES?=caddy whoami privoxy terminal codeserver headscale coredns
 SERVICES_INCLUDES := $(foreach service,$(SERVICES),docker/$(service)/$(service).mk)
 include ${SERVICES_INCLUDES}
 
@@ -41,9 +48,15 @@ include ${SERVICES_INCLUDES}
 ${LOCAL_DIR}:
 	mkdir -p local
 
-${WORKSPACE_DIR}:
-	mkdir -p ${WORKSPACE_DIR}/config
-	@printf "📁	Created directory structure workspace/config.\n"
+${SERVICE_DIR}:
+	mkdir -p ${SERVICE_DIR}
+
+${CONFIG_DIR}:
+	mkdir -p ${CONFIG_DIR}
+
+${WORKSPACE_DIR}: ${SERVICE_DIR} ${CONFIG_DIR}
+	mkdir -p ${WORKSPACE_DIR}
+	@printf "📁	Created directory structure workspace dir config & service .\n"
 
 # Define a function to generate targets
 define g_docker_targets
