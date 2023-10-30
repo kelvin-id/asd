@@ -4,7 +4,7 @@ services:
   asd-codeserver:
     build: 
       context: ${PWD}
-      dockerfile: ${PWD}/docker/codeserver/alpine.python.dockerfile
+      dockerfile: ${PWD}/docker/codeserver/alpine.dockerfile
       # args:
       #   - OS_VERSION:${OS_VERSION}
       #   - DEVELOPMENT_LANG:${DEVELOPMENT_LANG}
@@ -25,7 +25,7 @@ services:
       caddy.reverse_proxy: "{{upstreams 7682}}"
       caddy.tls: internal
     volumes:
-      - ${PWD}/workspace:/home/developer/workspace:rw
+      - ${PWD}/workspace/developer:/home/developer/workspace:rw
       - /var/run/docker.sock:/var/run/docker.sock
 
 networks:

@@ -7,8 +7,8 @@ MACHINE_ARCH=<QEMU?>
 DEVELOPMENT_LANG=python
 
 CODESERVER_IMAGE=codeserver-asd-terminal
-CODESERVER_PATH=${PWD}/alpine.python.dockerfile
-CODESERVER_COMPOSE=docker/codeserver/${MACHINE_OS}.${DEVELOPMENT_LANG}.docker-compose.yml
+CODESERVER_PATH=${PWD}/alpine.dockerfile
+CODESERVER_COMPOSE=docker/codeserver/${MACHINE_OS}.docker-compose.yml
 
 # Target to check if Dockerfile has changed and trigger a rebuild if necessary
 docker-codeserver-check:

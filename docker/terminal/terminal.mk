@@ -7,8 +7,8 @@ MACHINE_ARCH=<QEMU?>
 DEVELOPMENT_LANG=python
 
 TERMINAL_IMAGE=asd-terminal
-TERMINAL_PATH=${PWD}/alpine.python.dockerfile
-TERMINAL_COMPOSE=docker/terminal/${MACHINE_OS}.${DEVELOPMENT_LANG}.docker-compose.yml
+TERMINAL_PATH=${PWD}/alpine.dockerfile
+TERMINAL_COMPOSE=docker/terminal/${MACHINE_OS}.docker-compose.yml
 
 # Target to check if Dockerfile has changed and trigger a rebuild if necessary
 docker-terminal-check:

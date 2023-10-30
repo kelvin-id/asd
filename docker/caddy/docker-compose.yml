@@ -15,8 +15,7 @@ services:
     networks:
       - asd_network
     volumes:
-      # sudo ls -all ./local/data/caddy/pki/authorities/local/root.crt
-      - ${PWD}/local/data:/data
+      - ${PWD}/workspace/service:/data
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 

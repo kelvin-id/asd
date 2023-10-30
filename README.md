@@ -28,7 +28,10 @@ All environment settings or overrides should be in "workspace/config/.env"
 Assuming the docker engine is running.
 
 - run `make start` and in the browser go to "https://code.localhost"
+- run `make caddy-copy-ca` to copy the root.crt and intermediate.crt keystore files
+    - add both files to the keystore to resolve https security issues in the browser 
 
 ## 🐞   Issues
 
-- WIP: The browser is unhappy with https!
+- Fixed: The browser can now accept https by adding the caddy root CA to the keystore
+    - ToDo: command for linux and some screenshots in docs for Windows/WSL2 would be nice

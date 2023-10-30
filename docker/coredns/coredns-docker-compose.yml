@@ -5,10 +5,15 @@ services:
     container_name: asd-coredns
     networks:
       - asd_network
+    expose:
+        - '53'
+        - '53/udp'
     labels:
       caddy: dns.localhost
       caddy.reverse_proxy: "{{upstreams 53}}"
       caddy.tls: internal
+    volumes:
+      - ${PWD}/workspace/service/coredns:/etc/coredns
 
 networks:
   asd_network:

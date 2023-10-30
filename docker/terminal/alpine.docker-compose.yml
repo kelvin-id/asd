@@ -4,7 +4,7 @@ services:
   asd-terminal:
     build: 
       context: ${PWD}
-      dockerfile: ${PWD}/docker/terminal/alpine.python.dockerfile
+      dockerfile: ${PWD}/docker/terminal/alpine.dockerfile
       # args:
       #   - OS_VERSION:${OS_VERSION}
       #   - DEVELOPMENT_LANG:${DEVELOPMENT_LANG}
@@ -16,6 +16,8 @@ services:
     restart: unless-stopped
     networks:
       - asd_network
+    dns:
+      - asd-coredns
     # ports:
     #   - "7681:7681"
     labels:
@@ -27,6 +29,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     # Set ttyd as the command (not entrypoint) with specified options
     command: sh -c "ttyd -p 7681 zsh"
+    user: "${UID}:${GID}"
 
 networks:
   asd_network:

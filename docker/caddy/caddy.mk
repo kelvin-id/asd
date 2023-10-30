@@ -1,8 +1,6 @@
 #!make
 .PHONY: $(call read_phony_targets,caddy.phony)
 
-CADDY_DIR=workspace/service/caddy
-
 # Set the name of the Caddy container
 CADDY_CONTAINER=asd-caddy
 
@@ -11,6 +9,7 @@ CADDY_CERT_PATH=${PWD}/root.crt
 
 CADDY_COMPOSE=docker/caddy/docker-compose.yml
 
+CADDY_DIR=workspace/service/caddy
 ${CADDY_DIR}:
 	mkdir -p ${CADDY_DIR}
 
@@ -20,11 +19,11 @@ docker-caddy-up: ${CADDY_DIR}
 docker-caddy-down:
 	@${COMPOSE} -f ${CADDY_COMPOSE} down
 
+docker-caddy-recreate:
+	@${COMPOSE} -f ${CADDY_COMPOSE} up -d --force-recreate
+
 docker-caddy-connect:
 	docker exec -it ${CADDY_CONTAINER} /bin/sh
-
-docker-caddy-recreate:
-	@${COMPOSE} -f ${CADDY_CONTAINER} up -d --force-recreate
 
 # Copy the Caddy root certificate
 caddy-copy-ca:

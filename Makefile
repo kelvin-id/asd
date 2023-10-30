@@ -7,6 +7,7 @@ LOCAL_DIR?=local
 WORKSPACE_DIR?=workspace
 CONFIG_DIR=${WORKSPACE_DIR}/config
 SERVICE_DIR=${WORKSPACE_DIR}/service
+DEV_DIR=${WORKSPACE_DIR}/developer
 CONFIG_FILE?=.env
 CONFIG_DEFAULT?=./config/.env-example
 CONFIG_PATH?=${WORKSPACE_DIR}/config/${CONFIG_FILE}
@@ -51,10 +52,13 @@ ${LOCAL_DIR}:
 ${SERVICE_DIR}:
 	mkdir -p ${SERVICE_DIR}
 
+${DEV_DIR}:
+	mkdir -p ${DEV_DIR}
+
 ${CONFIG_DIR}:
 	mkdir -p ${CONFIG_DIR}
 
-${WORKSPACE_DIR}: ${SERVICE_DIR} ${CONFIG_DIR}
+${WORKSPACE_DIR}: ${SERVICE_DIR} ${CONFIG_DIR} ${DEV_DIR}
 	mkdir -p ${WORKSPACE_DIR}
 	@printf "📁	Created directory structure workspace dir config & service .\n"
 

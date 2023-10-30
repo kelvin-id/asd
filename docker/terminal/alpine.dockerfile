@@ -8,6 +8,7 @@ RUN apk update && apk add --upgrade \
     just \
     curl \
     zsh \
+    alpine-zsh-config \
     ttyd \
     docker \
     lazydocker \
@@ -16,14 +17,16 @@ RUN apk update && apk add --upgrade \
     && apk del \
     &&rm -rf /var/cache/apk/*
 
-# Create the sudoers.d directory, a new user with no password, and grant it sudo privileges
+# Create a new group with a specific GID
+RUN addgroup -g 1000 developer
+
+# Create a new user with a specific UID, and add it to the group
+RUN adduser -D -u 1000 -G developer developer
+
+# Create the sudoers.d directory and grant the user sudo privileges
 RUN mkdir -p /etc/sudoers.d && \
-    adduser -D developer && \
     echo 'developer ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer
-
-# Optionally, add the new user to the wheel group (accordig to convention)
-RUN addgroup developer wheel
 
 # Switch to the new user
 USER developer
