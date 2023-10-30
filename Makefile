@@ -40,7 +40,7 @@ include scripts/make/modules/container/docker.mk
 
 # > Services
 
-SERVICES?=caddy whoami privoxy terminal codeserver headscale coredns
+SERVICES?=caddy whoami privoxy terminal codeserver headscale coredns #httptoolkit
 SERVICES_INCLUDES := $(foreach service,$(SERVICES),docker/$(service)/$(service).mk)
 include ${SERVICES_INCLUDES}
 
