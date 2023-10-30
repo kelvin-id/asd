@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  httptoolkit:
+    build: 
+      context: ${PWD}
+      dockerfile: ${PWD}/docker/httptoolkit/debian.server.dockerfile
+      args:
+        - VERSION:3.1.4
+        - SHA256:840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3
+    image: asd-httptoolkit-server
+    container_name: asd-httptoolkit-server
+    networks:
+      - asd_network
+    ports:
+      - 45456:45456
+    # tty: true
+    labels:
+      caddy: intercept.localhost
+      caddy.reverse_proxy: "{{upstreams 45456}}"
+      caddy.tls: internal
+
+networks:
+  asd_network:
+    external: true
